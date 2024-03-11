@@ -22,6 +22,15 @@ private_key = os.getenv('EVM_PRIVATE_KEY')  # It's safer to use an environment v
 if not private_key:
     raise ValueError("Private key not provided.")
 
+send_amount = os.getenv('SEND_AMOUNT')
+amount_value = 0.0
+try:
+    amount_value = float(send_amount)
+    if amount_value == 0.0:
+        raise ValueError("Invalid amount: 0.0")
+except ValueError:
+    print(f"Invalid amount: {send_amount}")
+
 # Your wallet address
 from_address = Account.from_key(private_key).address
 
@@ -48,7 +57,7 @@ except FileNotFoundError:
     print(f"The file {file_path} was not found.")
 
 # Amount of ZETA or ZETA-based token to send to each address
-amount = web3.to_wei(0.1, 'ether')  # Example: 0.1 ZETA or ZETA-based token
+amount = web3.to_wei(amount_value, 'ether')  # Example: 0.1 ZETA or ZETA-based token
 
 # Sending ZETA or ZETA-based token to each address
 for address in recipient_addresses:

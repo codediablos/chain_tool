@@ -34,6 +34,7 @@ API_KEY = replace_your_key_here
 SECRET_KEY = replace_your_secret_here
 PASSPHRASE = replace_your_passphrase_here
 EVM_PRIVATE_KEY = replace_your_private_key
+SEND_AMOUNT = replace_your_send_amount
 ```
 
 - you can use addr_generator.py if you don't have EVM address
@@ -44,3 +45,15 @@ python addr_generator.py
 #### Step 4: Add address list
 
 - add address to addr_list.txt
+
+#### Step 5: transfer token
+
+- on chain
+```python
+python chain_tool.py
+```
+
+- by okx
+```python
+python okx_withdrawal.py
+```

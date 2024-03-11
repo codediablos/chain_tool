@@ -33,6 +33,15 @@ try:
 except FileNotFoundError:
     print(f"The file {file_path} was not found.")
 
+send_amount = os.getenv('SEND_AMOUNT')
+amount_value = 0.0
+try:
+    amount_value = float(send_amount)
+    if amount_value == 0.0:
+        raise ValueError("Invalid amount: 0.0")
+except ValueError:
+    print(f"Invalid amount: {send_amount}")
+
 def get_currencies(name, chain):
     result = fundingAPI.get_currencies()
     for coin in result['data']:
@@ -52,7 +61,7 @@ def withdrawal(name, chain, toAddr, amt):
     )
 
 if __name__ == "__main__":
-    amt = "4"
+    amt = amount_value
     for address in recipient_addresses:
         result = withdrawal("ZETA", "ZETA-ZetaChain", address, amt)
     print(result)
