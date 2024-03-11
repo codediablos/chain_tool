@@ -15,6 +15,24 @@ passphrase = os.getenv('PASSPHRASE')
 flag = '0'
 fundingAPI = Funding.FundingAPI(apikey, secretkey, passphrase, False, flag)
 
+# Define the path to your file
+file_path = 'addr_list.txt'
+
+# Addresses to send ZETA or ZETA-based token to
+recipient_addresses = []
+
+# Open the file and read the addresses
+try:
+    with open(file_path, 'r') as file:
+        for line in file:
+            # Strip newlines and whitespace
+            address = line.strip()
+            # Add the address to the list if it's not empty
+            if address:
+                recipient_addresses.append(address)
+except FileNotFoundError:
+    print(f"The file {file_path} was not found.")
+
 def get_currencies(name, chain):
     result = fundingAPI.get_currencies()
     for coin in result['data']:
@@ -34,7 +52,7 @@ def withdrawal(name, chain, toAddr, amt):
     )
 
 if __name__ == "__main__":
-    toAddr = "0x524595497F85B7D6104828f647cF95033ec09F7E"
     amt = "4"
-    result = withdrawal("ZETA", "ZETA-ZetaChain", toAddr, amt)
+    for address in recipient_addresses:
+        result = withdrawal("ZETA", "ZETA-ZetaChain", address, amt)
     print(result)
