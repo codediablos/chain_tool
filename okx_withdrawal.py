@@ -1,4 +1,4 @@
-import os
+import os, time
 
 # python-dotenv should have been installed from the dependencies
 from dotenv import load_dotenv
@@ -64,4 +64,5 @@ if __name__ == "__main__":
     amt = amount_value
     for address in recipient_addresses:
         result = withdrawal("ZETA", "ZETA-ZetaChain", address, amt)
-    print(result)
+        time.sleep(1)
+        print(result)
